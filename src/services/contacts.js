@@ -46,11 +46,15 @@ export const getContactById = async ({ contactId, userId }) => {
 };
 
 export const createContact = async (payload) => {
-  const contact = await ContactsCollection.create(payload);
-  return contact;
+  console.log('Payload for creating contact:', payload);
+  return await ContactsCollection.create(payload);
 };
 
 export const updateContact = async (contactId, userId, payload, options = {}) => {
+  console.log('Updating contact with ID:', contactId);
+  console.log('User ID:', userId);
+  console.log('Payload:', payload);
+
   const updatedContact = await ContactsCollection.findOneAndUpdate(
     { _id: contactId, userId },
     payload,
@@ -60,7 +64,12 @@ export const updateContact = async (contactId, userId, payload, options = {}) =>
     },
   );
 
-  if (!updatedContact) return null;
+  if (!updatedContact) {
+    console.log('Contact not found');
+    return null;
+  }
+
+  console.log('Updated contact:', updatedContact);
 
   return {
     contact: updatedContact,
