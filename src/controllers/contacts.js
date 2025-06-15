@@ -56,6 +56,7 @@ export const createContactsController = async (req, res) => {
   try {
     const contactData = {
       ...req.body,
+      userId: req.user._id, 
     };
 
     if (req.file) {
